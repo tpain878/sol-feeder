@@ -1,0 +1,24 @@
+name: Feeder
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # every 5 minutes (UTC)
+  workflow_dispatch:        # allow manual run
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send feed event
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          set -e
+          SCORE=$(( (RANDOM % 20) + 80 ))   # 80..99
+          MINT="DUMMY$(date +%s)"
+          curl -sS -X POST "$API_URL/feed" \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $API_KEY" \
+            -d "{\"mint\":\"$MINT\",\"score\":$SCORE}" \
+          || exit 1
