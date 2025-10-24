@@ -8,9 +8,9 @@ HELIUS_API_KEY = os.getenv("HELIUS_API_KEY")      # set on Render later
 # ---- Replace this function later with real Helius logic ----
 # For now: demo "candidate" mints (fake mints shaped like pump.fun style).
 def find_new_candidates():
-    # Simulate discovery of 1-3 new tokens per loop
+    # Simulate discovery of 1-10 new tokens per loop
     out = []
-    for _ in range(random.randint(1,3)):
+    for _ in range(random.randint(1,10)):
         mint = f"DUMMY{random.randint(1000000,9999999)}"
         # quick toy score; swap with real scoring later
         score = random.randint(80, 98)
